@@ -10,6 +10,7 @@
       <w>gson</w>
       <w>initializer</w>
       <w>initializers</w>
+      <w>moshi</w>
       <w>robolectric</w>
       <w>traceur</w>
     </words>
