@@ -5,10 +5,10 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import net.hugonardo.archtemplate.domain.AppThrowable.Type
-import net.hugonardo.archtemplate.domain.AppThrowable.Type.Companion.GENERIC
+import net.hugonardo.archtemplate.domain.AppThrowable.Type.Companion.UNKNOWN
 
 class AppThrowable(
-        val type: Type = Type.GENERIC,
+        val type: Type = UNKNOWN,
 
         message: String? = null,
 
@@ -16,29 +16,28 @@ class AppThrowable(
 ) : Throwable(message, cause) {
 
     interface Type {
-
         companion object {
-            val GENERIC = object : Type {
+            val UNKNOWN = object : Type {
             }
         }
     }
 }
 
-fun Throwable.toAppThrowable(type: Type = GENERIC, message: String? = null): AppThrowable {
+fun Throwable.toAppThrowable(type: Type = UNKNOWN, message: String? = null): AppThrowable {
     return when (this) {
         is AppThrowable -> this
         else -> AppThrowable(type = type, message = message, cause = this)
     }
 }
 
-fun <T> Throwable.toSingleError(type: Type = GENERIC, message: String? = null): Single<T> =
+fun <T> Throwable.toSingleError(type: Type = UNKNOWN, message: String? = null): Single<T> =
         Single.error(toAppThrowable(type, message))
 
-fun Throwable.toCompletableError(type: Type = GENERIC, message: String? = null): Completable =
+fun Throwable.toCompletableError(type: Type = UNKNOWN, message: String? = null): Completable =
         Completable.error(toAppThrowable(type, message))
 
-fun <T> Throwable.toObservableError(type: Type = GENERIC, message: String? = null): Observable<T> =
+fun <T> Throwable.toObservableError(type: Type = UNKNOWN, message: String? = null): Observable<T> =
         Observable.error(toAppThrowable(type, message))
 
-fun <T> Throwable.toFlowableError(type: Type = GENERIC, message: String? = null): Flowable<T> =
+fun <T> Throwable.toFlowableError(type: Type = UNKNOWN, message: String? = null): Flowable<T> =
         Flowable.error(toAppThrowable(type, message))
