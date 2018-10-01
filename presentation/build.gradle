@@ -57,6 +57,7 @@ dependencies {
     // RX
     implementation dependencies.rx.java
     implementation dependencies.rx.kotlin
+    implementation dependencies.rx.android
 
     // Dependence injection
     compileOnly dependencies.dagger.jsr250
