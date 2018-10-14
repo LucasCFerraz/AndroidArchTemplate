@@ -9,7 +9,7 @@ ext {
     ]
 
     // Android Project Config
-    androidGradlePluginVersion = "3.2.0"
+    androidGradlePluginVersion = "3.2.1"
     android = [
             plugin: "com.android.tools.build:gradle:$androidGradlePluginVersion",
     ]
